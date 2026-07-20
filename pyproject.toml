@@ -1,0 +1,14 @@
+[project]
+name = "frimaral-bi"
+version = "0.4.0"
+description = "Motor de datos para el Libro Maestro FRIMARAL BI"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+xlsb = ["pandas>=2.2", "pyxlsb>=1.0"]
+test = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

@@ -1,0 +1,3 @@
+# Base: sin dependencias externas.
+# Para leer XLSB reales del MGAP instale las dependencias opcionales:
+# pip install -e '.[xlsb]'
