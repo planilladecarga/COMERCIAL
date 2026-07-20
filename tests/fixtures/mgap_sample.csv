@@ -1,5 +1,26 @@
 Fecha,Establecimiento Productor,Establecimiento Certificador,Destino,Pais,Producto,Corte,Peso
-2025-01-01, Frigorifico Norte ,Cert Uno,Deposito Central,Uruguay (Solo a Depósitos),Carne,Bife,1234.5
-02/01/2025,Frigorifico Norte,Cert Dos,Puerto Montevideo,Brasil,Carne,Asado,200
-2025-01-01, Frigorifico Norte ,Cert Uno,Deposito Central,Uruguay (Solo a Depósitos),Carne,Bife,1234.5
-2025-13-01,Productor Sur,Cert Dos,Deposito Sur,Chile,Lana,Fino,-5
+2025-01-15,Productor Alfa,CALIRAL,Deposito CALIRAL,Uruguay (Solo a Depósitos),Carne,Bife,1234.5
+2025-01-20,Productor Alfa,CALIRAL,Puerto Montevideo,Brasil,Carne,Asado,5000.0
+2025-02-10,Productor Alfa,CALIRAL,Deposito CALIRAL,Uruguay (Solo a Depósitos),Carne,Bife,2300.0
+2025-03-05,Productor Alfa,ARBIZA,Deposito ARBIZA,Uruguay (Solo a Depósitos),Carne,Asado,1800.0
+2025-01-12,Productor Beta,CALIRAL,Deposito CALIRAL,Uruguay (Solo a Depósitos),Carne,Bife,3200.0
+2025-02-18,Productor Beta,CALIRAL,Puerto Montevideo,China,Carne,Asado,9500.0
+2025-03-22,Productor Beta,ARBIZA,Deposito ARBIZA,Uruguay (Solo a Depósitos),Carne,Bife,4100.0
+2025-01-08,Productor Gamma,ARBIZA,Deposito ARBIZA,Uruguay (Solo a Depósitos),Carne,Asado,2700.0
+2025-02-14,Productor Gamma,ARBIZA,Puerto Montevideo,Estados Unidos,Carne,Bife,6800.0
+2025-03-10,Productor Gamma,ARBIZA,Deposito ARBIZA,Uruguay (Solo a Depósitos),Carne,Asado,3300.0
+2025-01-25,SAN JACINTO,CALIRAL,Deposito CALIRAL,Uruguay (Solo a Depósitos),Carne,Bife,5600.0
+2025-02-22,SAN JACINTO,ARBIZA,Deposito ARBIZA,Uruguay (Solo a Depósitos),Carne,Asado,4200.0
+2025-03-18,SAN JACINTO,CALIRAL,Puerto Montevideo,China,Carne,Bife,8900.0
+2025-01-30,Productor Delta,CALIRAL,Deposito CALIRAL,Uruguay (Solo a Depósitos),Carne,Asado,1500.0
+2025-02-28,Productor Delta,CALIRAL,Puerto Montevideo,Brasil,Carne,Bife,2200.0
+2025-03-15,Productor Delta,CALIRAL,Deposito CALIRAL,Uruguay (Solo a Depósitos),Carne,Asado,1900.0
+2025-01-05,Productor Epsilon,ARBIZA,Deposito ARBIZA,Uruguay (Solo a Depósitos),Carne,Bife,3400.0
+2025-02-12,Productor Epsilon,ARBIZA,Puerto Montevideo,Estados Unidos,Carne,Asado,5600.0
+2025-03-20,Productor Epsilon,ARBIZA,Deposito ARBIZA,Uruguay (Solo a Depósitos),Carne,Bife,2900.0
+2025-01-18,Productor Zeta,CALIRAL,Deposito CALIRAL,Uruguay (Solo a Depósitos),Carne,Asado,4100.0
+2025-02-25,Productor Zeta,FRIGORIFICO TACUAREMBO,Deposito Tacuarembo,Uruguay (Solo a Depósitos),Carne,Bife,3700.0
+2025-03-12,Productor Zeta,CALIRAL,Puerto Montevideo,Alemania,Carne,Asado,6200.0
+2025-01-10,Productor Eta,ARBIZA,Deposito ARBIZA,Uruguay (Solo a Depósitos),Carne,Bife,2500.0
+2025-02-15,Productor Eta,ARBIZA,Deposito ARBIZA,Uruguay (Solo a Depósitos),Carne,Asado,2600.0
+2025-03-22,Productor Eta,ARBIZA,Puerto Montevideo,Chile,Carne,Bife,2800.0

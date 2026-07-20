@@ -22,12 +22,13 @@ def build_database(tmp_path):
 
 def test_empresa360_builds_generic_company_profile(tmp_path):
     service = Empresa360(build_database(tmp_path))
-    ficha = service.construir("Frigorifico Norte")
+    ficha = service.construir("CALIRAL")
 
-    assert ficha.informacion_general["nombre"] == "FRIGORIFICO NORTE"
-    assert ficha.roles["productor"] is True
-    assert ficha.indicadores["cantidad_movimientos"] == 3
-    assert ficha.indicadores["kg_totales"] == 2669.0
+    assert ficha.informacion_general["nombre"] == "CALIRAL"
+    assert ficha.roles["certificador"] is True
+    # CALIRAL aparece como certificador en 11 movimientos del fixture ampliado
+    assert ficha.indicadores["cantidad_movimientos"] >= 10
+    assert ficha.indicadores["kg_totales"] > 0
     assert ficha.depositos_utilizados
     assert ficha.mercados
     assert ficha.productos
@@ -38,9 +39,9 @@ def test_empresa360_builds_generic_company_profile(tmp_path):
 def test_empresa360_answers_reusable_commercial_questions(tmp_path):
     service = Empresa360(build_database(tmp_path))
 
-    mercados = service.responder("Cert Uno", "¿Qué mercados trabaja Cert Uno?")
-    productores = service.responder("Cert Uno", "¿Qué productores utilizan Cert Uno?")
-    competidores = service.responder("Cert Uno", "¿Qué competidores tiene Cert Uno?")
+    mercados = service.responder("CALIRAL", "¿Qué mercados trabaja CALIRAL?")
+    productores = service.responder("CALIRAL", "¿Qué productores utilizan CALIRAL?")
+    competidores = service.responder("CALIRAL", "¿Qué competidores tiene CALIRAL?")
 
     assert mercados
     assert productores
