@@ -8,6 +8,7 @@ from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 from xml.sax.saxutils import escape
 
+from .ci.engine import CompetitiveIntelligenceEngine
 from .models import Row
 
 MASTER_WORKBOOK_SHEETS = [
@@ -19,9 +20,11 @@ MASTER_WORKBOOK_SHEETS = [
     "25_TD_CALIRAL", "26_TD_SAN_JACINTO", "27_TD_COMPETENCIA",
     "30_Dashboard_Ejecutivo", "31_Dashboard_CALIRAL", "32_Dashboard_SAN_JACINTO",
     "33_Dashboard_COMPETENCIA",
+    "40_CI_Competencia", "41_CI_Radar", "42_CI_Oportunidades",
+    "43_CI_Alertas", "44_CI_Comparador", "45_CI_Indices",
 ]
 
-VERSION = "3.0.0"
+VERSION = "4.0.0"
 
 
 def column_name(index: int) -> str:
@@ -79,6 +82,12 @@ class SQLiteBIReader:
             "31_Dashboard_CALIRAL": lambda c: self._placeholder_dashboard(c, "CALIRAL"),
             "32_Dashboard_SAN_JACINTO": lambda c: self._placeholder_dashboard(c, "SAN JACINTO"),
             "33_Dashboard_COMPETENCIA": lambda c: self._placeholder_dashboard(c, "COMPETENCIA"),
+            "40_CI_Competencia": lambda c: self._ci_table(c, "ci_competencia", "Competencia — empresas con solapamiento vs empresa focal.", self._last_ci()),
+            "41_CI_Radar": lambda c: self._ci_table(c, "ci_radar", "Radar comercial — nuevos, perdidos, caídas y crecimientos.", self._last_ci()),
+            "42_CI_Oportunidades": lambda c: self._ci_table(c, "ci_oportunidades", "Ranking de oportunidades comerciales detectadas.", self._last_ci()),
+            "43_CI_Alertas": lambda c: self._ci_table(c, "ci_alertas", "Alertas de riesgo comercial detectadas.", self._last_ci()),
+            "44_CI_Comparador": lambda c: self._ci_table(c, "ci_comparador", "Comparativos CALIRAL vs competidores principales.", self._last_ci()),
+            "45_CI_Indices": lambda c: self._ci_table(c, "ci_indices", "Índices CI: Diversificación, Fidelidad, Competencia, Riesgo, Oportunidad.", self._last_ci()),
         }
         headers, rows, purpose = builders[name](conn)
         return SheetPayload(name, name.split("_", 1)[1], purpose, headers, rows)
@@ -211,6 +220,42 @@ class SQLiteBIReader:
     def _placeholder_dashboard(self, conn: sqlite3.Connection, name: str) -> tuple[list[str], list[Row], str]:
         rows = [{"seccion": name, "estado": "Reservado", "nota": "No se desarrollan dashboards interactivos en este sprint."}]
         return ["seccion", "estado", "nota"], rows, "Hoja reservada y no vacía para trazabilidad futura."
+
+    # ------------------------------------------------------------------
+    # Sprint 5 — Motor de Inteligencia Competitiva
+    # ------------------------------------------------------------------
+
+    def _last_ci(self) -> str:
+        """Cache de la última ejecución CI; la inicializa perezosamente."""
+        if not hasattr(self, "_ci_cache"):
+            self._ci_cache = CompetitiveIntelligenceEngine(self.database_path).ejecutar(persistir=True)
+        return self._ci_cache
+
+    def _ci_table(
+        self,
+        conn: sqlite3.Connection,
+        table: str,
+        purpose: str,
+        ci_result: object,
+    ) -> tuple[list[str], list[Row], str]:
+        """Lee una tabla `ci_*` materializada por el motor CI.
+
+        Si la tabla no existe todavía (la BD se generó antes del Sprint 5),
+        ejecuta el motor CI para crearla. Así el workbook nunca queda vacío.
+        """
+        try:
+            rows = self._rows(conn, f"SELECT * FROM {table} ORDER BY 1 DESC")
+        except sqlite3.Error:
+            rows = []
+        if not rows:
+            # Tabla vacía o inexistente: ejecute el motor CI y reintente.
+            CompetitiveIntelligenceEngine(self.database_path).ejecutar(persistir=True)
+            try:
+                rows = self._rows(conn, f"SELECT * FROM {table} ORDER BY 1 DESC")
+            except sqlite3.Error:
+                rows = []
+        headers = list(rows[0].keys()) if rows else ["empresa_focal", "detalle"]
+        return headers, rows or [{"empresa_focal": "CALIRAL", "detalle": "Sin datos CI"}], purpose
 
 
 class MasterWorkbookWriter:
