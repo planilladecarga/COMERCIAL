@@ -1,7 +1,2 @@
-# Artefactos generados localmente
-output/
-
-# Python
-__pycache__/
-.pytest_cache/
-*.py[cod]
+# Archivos generados localmente
+output/*.xlsx

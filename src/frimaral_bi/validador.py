@@ -52,12 +52,7 @@ class ValidadorMGAP:
         if value in (None, ""):
             return
         try:
-            text = str(value).strip()
-            if "," in text and "." in text:
-                text = text.replace(".", "").replace(",", ".")
-            elif "," in text:
-                text = text.replace(",", ".")
-            number = float(text)
+            number = float(str(value).replace(".", "").replace(",", "."))
         except ValueError:
             issues.append(ValidationIssue("error", "INVALID_WEIGHT", "Peso no numérico.", index, "Peso", value))
             return

@@ -40,11 +40,7 @@ class NormalizadorMGAP:
             return None
         if isinstance(value, (int, float)):
             return float(value)
-        text = str(value).strip()
-        if "," in text and "." in text:
-            text = text.replace(".", "").replace(",", ".")
-        elif "," in text:
-            text = text.replace(",", ".")
+        text = str(value).replace(".", "").replace(",", ".")
         if not text:
             return None
         try:

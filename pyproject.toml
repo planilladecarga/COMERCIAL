@@ -1,6 +1,6 @@
 [project]
 name = "frimaral-bi"
-version = "0.4.0"
+version = "0.2.0"
 description = "Motor de datos para el Libro Maestro FRIMARAL BI"
 requires-python = ">=3.11"
 dependencies = []

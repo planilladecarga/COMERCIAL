@@ -22,7 +22,6 @@ class BaseDatosBI:
     def load(self, rows: list[Row], catalogs: dict[str, list[Row]]) -> None:
         self.initialize()
         with sqlite3.connect(self.database_path) as conn:
-            self._clear_existing_data(conn)
             self._insert_many(conn, "empresas", catalogs["empresas"])
             self._insert_many(conn, "paises", catalogs["paises"])
             self._insert_many(conn, "productos", catalogs["productos"])
@@ -30,10 +29,6 @@ class BaseDatosBI:
             self._insert_many(conn, "calendario", catalogs["calendario"])
             movimientos = [self._movement(row, catalogs) for row in rows]
             self._insert_many(conn, "movimientos", movimientos)
-
-    def _clear_existing_data(self, conn: sqlite3.Connection) -> None:
-        for table in ["movimientos", "calendario", "cortes", "productos", "paises", "empresas"]:
-            conn.execute(f"DELETE FROM {table}")
 
     def _insert_many(self, conn: sqlite3.Connection, table: str, rows: list[Row]) -> None:
         if not rows:
